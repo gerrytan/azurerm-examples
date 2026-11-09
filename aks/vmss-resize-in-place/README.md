@@ -1,8 +1,10 @@
 # AKS VMSS in-place resize
 
-The default behaviour of VM resizing in an [azurerm_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster) is to create a temporary node pool while the default one is being resized.
+The default behaviour of VM resizing in an [azurerm_kubernetes_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster) is to create a temporary node pool to coordinate create/cordon/drain/delete flow.
 
-This examples demonstrates how to utilise the in-place resize using combination of AzureRM and AzAPI while the feature is still in preview: https://learn.microsoft.com/en-us/azure/aks/resize-node-pool?tabs=azure-cli#resize-a-vmss-node-pool-in-place-preview 
+The in-place resize feature is still in preview and not yet supported by AzureRM: https://learn.microsoft.com/en-us/azure/aks/resize-node-pool?tabs=azure-cli#resize-a-vmss-node-pool-in-place-preview.
+
+The example in [main.tf](main.tf) demonstrates how to utilise the in-place resize using combination of AzureRM and AzAPI while the feature is still in preview.
 
 Once GA and supported in AzureRM, the `default_node_pool.vm_size` can be adjusted to the remote value in Azure, and `lifecycle.ignore_changes` and `azapi_update_resource` removed. Removing `azapi_update_resource` won't delete the AKS cluster.
 
